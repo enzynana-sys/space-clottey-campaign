@@ -1,21 +1,8 @@
 import { useState, useEffect } from 'react'
 
-// NDC Umbrella logo — inline SVG
+// NDC official logo
 const NdcLogo = () => (
-  <svg width="44" height="44" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-    {/* Umbrella canopy */}
-    <path d="M10 52 Q10 20 50 15 Q90 20 90 52 Z" fill="#006B3C"/>
-    {/* Canopy segments */}
-    <path d="M10 52 Q30 35 50 33 Q70 35 90 52" stroke="#CE1126" strokeWidth="2.5" fill="none"/>
-    <path d="M50 15 L50 52" stroke="#CE1126" strokeWidth="2"/>
-    {/* Handle */}
-    <line x1="50" y1="52" x2="50" y2="80" stroke="#111111" strokeWidth="4" strokeLinecap="round"/>
-    <path d="M50 80 Q50 90 42 90 Q36 90 36 84" stroke="#111111" strokeWidth="4" strokeLinecap="round" fill="none"/>
-    {/* Stars/NDC dots */}
-    <circle cx="32" cy="40" r="3" fill="#FCD116"/>
-    <circle cx="50" cy="35" r="3" fill="#FCD116"/>
-    <circle cx="68" cy="40" r="3" fill="#FCD116"/>
-  </svg>
+  <img src="/ndc-logo.png" alt="NDC Logo" style={{ width: 52, height: 52, objectFit: 'contain', display: 'block' }} />
 )
 
 const LINKS = [
