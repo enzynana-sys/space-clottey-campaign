@@ -5,21 +5,10 @@
   --color-ndc-red: #CE1126;
   --color-ndc-gold: #FCD116;
   --color-wa-green: #25D366;
-  --color-text-primary: #111111;
-  --color-text-secondary: #555555;
-  --color-section-alt: #F7F9F7;
-  --color-border: #E5E5E5;
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -27,27 +16,17 @@ body {
   background: #ffffff;
   line-height: 1.8;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-#root {
-  width: 100%;
-}
+#root { width: 100%; }
 
-/* Scroll reveal */
 .reveal {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 400ms ease, transform 400ms ease;
 }
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* Mobile sticky bar offset */
 @media (max-width: 767px) {
-  body {
-    padding-bottom: 56px;
-  }
+  body { padding-bottom: 56px; }
 }

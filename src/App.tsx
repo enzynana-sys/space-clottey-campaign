@@ -1,11 +1,14 @@
+import TopBar from './components/TopBar'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import Pillars from './components/Pillars'
+import StatsRow from './components/StatsRow'
 import About from './components/About'
-import Gallery from './components/Gallery'
+import VisionCards from './components/VisionCards'
+import Pillars from './components/Pillars'
 import Biodigester from './components/Biodigester'
 import Jobs from './components/Jobs'
-import Vision from './components/Vision'
+import Gallery from './components/Gallery'
+import VisionAgenda from './components/VisionAgenda'
 import Volunteer from './components/Volunteer'
 import Footer from './components/Footer'
 import StickyWhatsApp from './components/StickyWhatsApp'
@@ -13,15 +16,18 @@ import StickyWhatsApp from './components/StickyWhatsApp'
 export default function App() {
   return (
     <>
+      <TopBar />
       <Navbar />
       <main>
         <Hero />
-        <Pillars />
+        <StatsRow />
         <About />
-        <Gallery />
+        <VisionCards />
+        <Pillars />
         <Biodigester />
         <Jobs />
-        <Vision />
+        <Gallery />
+        <VisionAgenda />
         <Volunteer />
       </main>
       <Footer />
