@@ -2,6 +2,7 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Pillars from './components/Pillars'
 import About from './components/About'
+import Gallery from './components/Gallery'
 import Biodigester from './components/Biodigester'
 import Jobs from './components/Jobs'
 import Vision from './components/Vision'
@@ -17,6 +18,7 @@ export default function App() {
         <Hero />
         <Pillars />
         <About />
+        <Gallery />
         <Biodigester />
         <Jobs />
         <Vision />

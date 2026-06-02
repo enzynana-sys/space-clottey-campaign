@@ -121,31 +121,27 @@ export default function Hero() {
           From creating over 100 sustainable jobs to improving community health with free household biodigester toilets, we are building a stronger Odododiodioo together.
         </p>
 
-        {/* Photo placeholder */}
-        {/* UPDATE: Photo — replace div below with <img src="/space-clottey.jpg" ... loading="lazy"> */}
+        {/* Candidate photo */}
         <div
           className={`reveal${visible ? ' is-visible' : ''}`}
           style={{ marginBottom: 40 }}
         >
-          <div style={{
-            maxWidth: 480,
-            margin: '0 auto',
-            background: '#E8F5EE',
-            borderRadius: 8,
-            aspectRatio: '4/3',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 8,
-          }}>
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#006B3C" strokeWidth="1.5" strokeLinecap="round">
-              <circle cx="12" cy="8" r="4"/>
-              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-            </svg>
-            <span style={{ color: '#006B3C', fontSize: '0.875rem', fontWeight: 600 }}>Candidate Photo</span>
-            <span style={{ color: '#888', fontSize: '0.75rem' }}>space-clottey.jpg</span>
-          </div>
+          <img
+            src="/clottey-1.jpg"
+            alt="Space Clottey — NDC Candidate, Odododiodioo Constituency Chairman"
+            loading="eager"
+            style={{
+              maxWidth: 320,
+              width: '100%',
+              borderRadius: 8,
+              objectFit: 'cover',
+              objectPosition: 'top',
+              margin: '0 auto',
+              display: 'block',
+              boxShadow: '0 4px 24px rgba(0,0,0,0.10)',
+              border: '4px solid #006B3C',
+            }}
+          />
         </div>
 
         {/* Stats row */}

@@ -31,25 +31,21 @@ export default function About() {
         >
 
           {/* Left — photo placeholder */}
-          {/* UPDATE: Photo — replace with <img src="/space-clottey.jpg" loading="lazy" alt="Space Clottey" style={{width:'100%',borderRadius:8,objectFit:'cover'}} /> */}
+          {/* Candidate photo — About section */}
           <div className={`reveal${visible ? ' is-visible' : ''}`}>
-            <div style={{
-              background: '#E8F5EE',
-              borderRadius: 8,
-              aspectRatio: '3/4',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-            }}>
-              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#006B3C" strokeWidth="1.5" strokeLinecap="round">
-                <circle cx="12" cy="8" r="4"/>
-                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-              </svg>
-              <span style={{ color: '#006B3C', fontSize: '0.9375rem', fontWeight: 600 }}>Candidate Photo</span>
-              <span style={{ color: '#888', fontSize: '0.8125rem' }}>space-clottey.jpg</span>
-            </div>
+            <img
+              src="/clottey-2.jpg"
+              alt="Space Clottey — Proven Leader"
+              loading="lazy"
+              style={{
+                width: '100%',
+                borderRadius: 8,
+                objectFit: 'cover',
+                objectPosition: 'center top',
+                display: 'block',
+                boxShadow: '0 4px 24px rgba(0,0,0,0.10)',
+              }}
+            />
           </div>
 
           {/* Right — content */}
