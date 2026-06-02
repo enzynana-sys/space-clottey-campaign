@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-export function useScrollAnimation(threshold = 0.12) {
+export function useReveal(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
 

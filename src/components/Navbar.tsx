@@ -1,112 +1,187 @@
 import { useState, useEffect } from 'react'
 
-const links = [
+const NAV_LINKS = [
   { label: 'About', href: '#about' },
   { label: 'Biodigesters', href: '#biodigesters' },
   { label: 'Jobs', href: '#jobs' },
   { label: 'Vision', href: '#vision' },
 ]
 
+function scrollTo(href: string) {
+  document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
+}
+
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
+    const handler = () => setScrolled(window.scrollY > 8)
+    window.addEventListener('scroll', handler, { passive: true })
+    return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  const scrollTo = (href: string) => {
+  const handleNav = (href: string) => {
     setOpen(false)
-    const el = document.querySelector(href)
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
+    scrollTo(href)
   }
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b-2 border-[#FCD116] ${
-        scrolled ? 'shadow-lg shadow-black/30' : ''
-      }`}
-      style={{ backgroundColor: '#006B3C' }}
+    <header
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        background: '#ffffff',
+        borderBottom: '1px solid #E5E5E5',
+        boxShadow: scrolled ? '0 2px 12px rgba(0,0,0,0.08)' : 'none',
+        transition: 'box-shadow 200ms ease',
+      }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
 
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="cursor-pointer focus:outline-none"
-            aria-label="Back to top"
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '1.125rem',
+              fontWeight: 800,
+              color: '#006B3C',
+              letterSpacing: '-0.02em',
+              fontFamily: 'inherit',
+            }}
           >
-            <span
-              style={{ fontFamily: 'Playfair Display, serif' }}
-              className="text-[#FCD116] font-bold text-xl tracking-wide"
-            >
-              Space Clottey
-            </span>
+            Space Clottey
           </button>
 
-          {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-7">
-            {links.map(({ label, href }) => (
+          {/* Desktop nav */}
+          <nav style={{ display: 'flex', alignItems: 'center', gap: 32 }} className="hidden md:flex">
+            {NAV_LINKS.map(({ label, href }) => (
               <button
                 key={href}
-                onClick={() => scrollTo(href)}
-                className="text-white font-medium text-sm hover:text-[#FCD116] transition-colors duration-200 cursor-pointer"
-                style={{ fontFamily: 'Barlow, sans-serif' }}
+                onClick={() => handleNav(href)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '0.9375rem',
+                  fontWeight: 500,
+                  color: '#111111',
+                  fontFamily: 'inherit',
+                  transition: 'color 200ms',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = '#006B3C')}
+                onMouseLeave={e => (e.currentTarget.style.color = '#111111')}
               >
                 {label}
               </button>
             ))}
             <button
-              onClick={() => scrollTo('#join')}
-              className="bg-[#CE1126] hover:bg-[#a80e1f] text-white font-semibold text-sm px-5 py-2 rounded transition-colors duration-200 cursor-pointer"
-              style={{ fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.05em' }}
+              onClick={() => handleNav('#join')}
+              style={{
+                background: '#CE1126',
+                color: '#ffffff',
+                border: 'none',
+                borderRadius: 100,
+                padding: '8px 22px',
+                fontSize: '0.9375rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+                transition: 'background 200ms',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.background = '#a80e1f')}
+              onMouseLeave={e => (e.currentTarget.style.background = '#CE1126')}
             >
-              JOIN US
+              Join Us
             </button>
-          </div>
+          </nav>
 
           {/* Mobile hamburger */}
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden text-white p-2 cursor-pointer"
             aria-label="Toggle menu"
+            style={{
+              display: 'none',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: 8,
+            }}
+            className="flex md:hidden"
           >
-            <div className="space-y-1.5">
-              <span className={`block h-0.5 w-6 bg-white transition-all duration-200 ${open ? 'rotate-45 translate-y-2' : ''}`} />
-              <span className={`block h-0.5 w-6 bg-white transition-all duration-200 ${open ? 'opacity-0' : ''}`} />
-              <span className={`block h-0.5 w-6 bg-white transition-all duration-200 ${open ? '-rotate-45 -translate-y-2' : ''}`} />
-            </div>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111111" strokeWidth="2" strokeLinecap="round">
+              {open ? (
+                <>
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </>
+              ) : (
+                <>
+                  <line x1="3" y1="6" x2="21" y2="6"/>
+                  <line x1="3" y1="12" x2="21" y2="12"/>
+                  <line x1="3" y1="18" x2="21" y2="18"/>
+                </>
+              )}
+            </svg>
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile dropdown */}
       {open && (
-        <div className="md:hidden border-t border-[#FCD116]/30" style={{ backgroundColor: '#004D2A' }}>
-          <div className="px-4 py-3 flex flex-col gap-1">
-            {links.map(({ label, href }) => (
+        <div style={{ background: '#ffffff', borderTop: '1px solid #E5E5E5' }}>
+          <div style={{ maxWidth: 1100, margin: '0 auto', padding: '12px 24px 20px' }}>
+            {NAV_LINKS.map(({ label, href }) => (
               <button
                 key={href}
-                onClick={() => scrollTo(href)}
-                className="text-left text-white font-medium text-base px-3 py-2.5 rounded hover:bg-[#006B3C] transition-colors duration-200 cursor-pointer"
-                style={{ fontFamily: 'Barlow, sans-serif' }}
+                onClick={() => handleNav(href)}
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  textAlign: 'left',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '1rem',
+                  fontWeight: 500,
+                  color: '#111111',
+                  padding: '12px 0',
+                  fontFamily: 'inherit',
+                  borderBottom: '1px solid #F0F0F0',
+                }}
               >
                 {label}
               </button>
             ))}
             <button
-              onClick={() => scrollTo('#join')}
-              className="mt-2 bg-[#CE1126] text-white font-semibold text-sm px-5 py-3 rounded cursor-pointer"
-              style={{ fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.05em' }}
+              onClick={() => handleNav('#join')}
+              style={{
+                marginTop: 16,
+                display: 'block',
+                width: '100%',
+                background: '#CE1126',
+                color: '#ffffff',
+                border: 'none',
+                borderRadius: 100,
+                padding: '12px 22px',
+                fontSize: '1rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+              }}
             >
-              JOIN US
+              Join Us
             </button>
           </div>
         </div>
       )}
-    </nav>
+    </header>
   )
 }

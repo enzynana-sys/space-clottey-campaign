@@ -1,23 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
   --color-ndc-green: #006B3C;
-  --color-ndc-dark: #004D2A;
-  --color-ndc-darker: #003320;
   --color-ndc-red: #CE1126;
   --color-ndc-gold: #FCD116;
-  --color-cream: #FAF7F0;
-
-  --font-heading: 'Playfair Display', serif;
-  --font-body: 'Barlow', sans-serif;
-  --font-accent: 'Barlow Condensed', sans-serif;
+  --color-wa-green: #25D366;
+  --color-text-primary: #111111;
+  --color-text-secondary: #555555;
+  --color-section-alt: #F7F9F7;
+  --color-border: #E5E5E5;
 }
 
-* {
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 html {
@@ -25,44 +22,32 @@ html {
 }
 
 body {
-  font-family: 'Barlow', sans-serif;
-  background: #fff;
-  color: #1a1a1a;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #111111;
+  background: #ffffff;
+  line-height: 1.8;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
   width: 100%;
-  max-width: 100%;
 }
 
-/* Marquee / Ticker animation */
-@keyframes marquee {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.animate-marquee {
-  animation: marquee 35s linear infinite;
-  display: flex;
-  width: max-content;
-}
-
-/* Scroll-triggered fade-up */
-.fade-up {
+/* Scroll reveal */
+.reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(20px);
+  transition: opacity 400ms ease, transform 400ms ease;
 }
-.fade-up.visible {
+.reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Stagger delays */
-.delay-100 { transition-delay: 0.1s; }
-.delay-200 { transition-delay: 0.2s; }
-.delay-300 { transition-delay: 0.3s; }
-.delay-400 { transition-delay: 0.4s; }
-.delay-500 { transition-delay: 0.5s; }
-.delay-600 { transition-delay: 0.6s; }
-.delay-700 { transition-delay: 0.7s; }
+/* Mobile sticky bar offset */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 56px;
+  }
+}

@@ -1,132 +1,89 @@
-import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { useReveal } from '../hooks/useReveal'
 
-// ── OFFICIAL CAMPAIGN COPY (verbatim — do not edit) ────────────────────────
-const CAMPAIGN_COPY = `With over two decades of leadership in global media—most notably as the founder of Voice of Africa Radio in the United Kingdom—my life's work has been dedicated to amplifying our community's stories and championing its progress. Today, that same passion drives tangible, grassroots development right here in our constituency.
+// Official campaign copy — verbatim, do not edit
+const COPY_P1 = `With over two decades of leadership in global media—most notably as the founder of Voice of Africa Radio in the United Kingdom—my life's work has been dedicated to amplifying our community's stories and championing its progress. Today, that same passion drives tangible, grassroots development right here in our constituency.`
 
-True leadership is measured by real results. We are transforming lives daily by delivering dignity and health through the installation of free household biodigester toilets, radically improving local sanitation. Simultaneously, we are combating unemployment by securing more than 100 sustainable jobs for our people across the construction, media, health, trade, education, security, hospitality, and technology sectors.`
+const COPY_P2 = `True leadership is measured by real results. We are transforming lives daily by delivering dignity and health through the installation of free household biodigester toilets, radically improving local sanitation. Simultaneously, we are combating unemployment by securing more than 100 sustainable jobs for our people across the construction, media, health, trade, education, security, hospitality, and technology sectors.`
 
 const HIGHLIGHTS = [
-  'Founder, Voice of Africa Radio (London)',
-  'Installing free biodigester toilets across households',
+  'Founder, Voice of Africa Radio (London, UK)',
+  'Installing free biodigester toilets for households',
   'Secured 100+ jobs across 8 sectors',
   'Media consultant and corporate speaker',
 ]
 
+const CheckIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style={{ flexShrink: 0, marginTop: 3 }}>
+    <rect width="18" height="18" rx="4" fill="#006B3C"/>
+    <path d="M5 9l3 3 5-5" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+)
+
 export default function About() {
-  const { ref, visible } = useScrollAnimation()
+  const { ref, visible } = useReveal()
 
   return (
-    <section id="about" className="py-20 lg:py-28" style={{ backgroundColor: '#FAF7F0' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={ref} className="grid lg:grid-cols-2 gap-14 items-start">
+    <section id="about" style={{ background: '#ffffff', padding: '80px 0' }}>
+      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
+        <div
+          ref={ref}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 64, alignItems: 'start' }}
+        >
 
-          {/* LEFT — Photo + quote */}
-          <div className={`fade-up ${visible ? 'visible' : ''}`}>
-
-            {/*
-              PHOTO PLACEHOLDER (About section)
-              Replace the div below with:
-              <img src="/space-clottey.jpg" alt="Space Clottey" className="w-full object-cover rounded" />
-              Place space-clottey.jpg in the /public folder — no other code changes needed.
-            */}
-            <div className="relative">
-              <div
-                className="w-full aspect-[4/5] rounded flex items-center justify-center text-center"
-                style={{
-                  backgroundColor: '#e8e0d0',
-                  border: '2px solid #CE1126',
-                  outline: '6px solid transparent',
-                  outlineOffset: '8px',
-                  boxShadow: '0 0 0 6px #FAF7F0, 0 0 0 10px #CE1126',
-                }}
-              >
-                <div>
-                  <div className="text-5xl mb-3">📸</div>
-                  <p
-                    className="text-[#006B3C] font-semibold text-sm"
-                    style={{ fontFamily: 'Barlow Condensed, sans-serif' }}
-                  >
-                    CANDIDATE PHOTO
-                  </p>
-                  <p className="text-gray-400 text-xs mt-1" style={{ fontFamily: 'Barlow, sans-serif' }}>
-                    Add space-clottey.jpg to /public
-                  </p>
-                </div>
-              </div>
-              {/* Red offset border */}
-              <div className="absolute -bottom-4 -right-4 w-full h-full border-2 border-[#CE1126] rounded -z-10" />
-            </div>
-
-            {/* Quote card */}
-            <div
-              className="mt-10 p-6 rounded-lg relative"
-              style={{ backgroundColor: '#004D2A' }}
-            >
-              <span
-                className="absolute -top-5 left-5 text-6xl leading-none text-[#FCD116] font-serif select-none"
-                aria-hidden="true"
-              >"</span>
-              <p
-                className="text-white/90 text-base leading-relaxed mt-4"
-                style={{ fontFamily: 'Barlow, sans-serif' }}
-              >
-                I have devoted my life to elevating African voices. Now I dedicate myself to elevating every voice in Odododiodioo.
-              </p>
-              <p
-                className="text-[#FCD116] font-semibold mt-3 text-sm"
-                style={{ fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.05em' }}
-              >
-                — Space Clottey
-              </p>
+          {/* Left — photo placeholder */}
+          {/* UPDATE: Photo — replace with <img src="/space-clottey.jpg" loading="lazy" alt="Space Clottey" style={{width:'100%',borderRadius:8,objectFit:'cover'}} /> */}
+          <div className={`reveal${visible ? ' is-visible' : ''}`}>
+            <div style={{
+              background: '#E8F5EE',
+              borderRadius: 8,
+              aspectRatio: '3/4',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+            }}>
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#006B3C" strokeWidth="1.5" strokeLinecap="round">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+              </svg>
+              <span style={{ color: '#006B3C', fontSize: '0.9375rem', fontWeight: 600 }}>Candidate Photo</span>
+              <span style={{ color: '#888', fontSize: '0.8125rem' }}>space-clottey.jpg</span>
             </div>
           </div>
 
-          {/* RIGHT — Content */}
-          <div className={`fade-up delay-200 ${visible ? 'visible' : ''}`}>
-            <p
-              className="text-[#CE1126] font-bold text-sm uppercase tracking-widest mb-3"
-              style={{ fontFamily: 'Barlow Condensed, sans-serif' }}
-            >
-              About the Candidate
-            </p>
-            <h2
-              className="text-3xl sm:text-4xl font-bold text-[#006B3C] mb-6 leading-tight"
-              style={{ fontFamily: 'Playfair Display, serif' }}
-            >
+          {/* Right — content */}
+          <div className={`reveal${visible ? ' is-visible' : ''}`} style={{ transitionDelay: '80ms' }}>
+            <div style={{ marginBottom: 8 }}>
+              <span style={{
+                fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.08em',
+                textTransform: 'uppercase', color: '#CE1126',
+              }}>
+                About the Candidate
+              </span>
+            </div>
+            <h2 style={{
+              fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
+              fontWeight: 800,
+              color: '#111111',
+              letterSpacing: '-0.02em',
+              lineHeight: 1.25,
+              marginBottom: 24,
+            }}>
               A Proven Leader, A Servant of the People
             </h2>
 
-            {/* Official campaign copy — verbatim */}
-            <div className="space-y-4 mb-8">
-              {CAMPAIGN_COPY.split('\n\n').map((para, i) => (
-                <p
-                  key={i}
-                  className="text-gray-700 leading-relaxed text-base"
-                  style={{ fontFamily: 'Barlow, sans-serif' }}
-                >
-                  {para}
-                </p>
-              ))}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 32 }}>
+              <p style={{ fontSize: '0.9375rem', color: '#555555', lineHeight: 1.8 }}>{COPY_P1}</p>
+              <p style={{ fontSize: '0.9375rem', color: '#555555', lineHeight: 1.8 }}>{COPY_P2}</p>
             </div>
 
             {/* Highlights */}
-            <div className="space-y-3">
-              {HIGHLIGHTS.map((point) => (
-                <div key={point} className="flex items-start gap-3">
-                  <div
-                    className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ backgroundColor: '#006B3C' }}
-                  >
-                    <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <span
-                    className="text-gray-800 font-medium text-base"
-                    style={{ fontFamily: 'Barlow, sans-serif' }}
-                  >
-                    {point}
-                  </span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              {HIGHLIGHTS.map(h => (
+                <div key={h} style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                  <CheckIcon />
+                  <span style={{ fontSize: '0.9375rem', color: '#111111', fontWeight: 500, lineHeight: 1.6 }}>{h}</span>
                 </div>
               ))}
             </div>

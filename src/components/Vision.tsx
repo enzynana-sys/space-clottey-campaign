@@ -1,111 +1,99 @@
-import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { useReveal } from '../hooks/useReveal'
+
+const ACCENTS = ['#006B3C', '#CE1126', '#FCD116', '#006B3C', '#CE1126', '#FCD116']
 
 const VISIONS = [
   {
     num: '01',
     title: 'Sanitation for All',
-    desc: 'Complete the biodigester rollout until every household in Odododiodioo has a clean, free, functional toilet.',
-    accent: '#006B3C',
+    desc: 'Complete the free biodigester rollout so every household has proper, dignified sanitation.',
   },
   {
     num: '02',
     title: 'Youth Employment Drive',
-    desc: 'Forge formal partnerships with employers to create structured, sustained employment pathways for our youth.',
-    accent: '#CE1126',
+    desc: "Expand formal partnerships with employers across Ghana's growing sectors to create more sustainable jobs.",
   },
   {
     num: '03',
     title: 'Community Voice',
-    desc: 'Build direct communication channels between residents and leadership so no concern goes unheard.',
-    accent: '#FCD116',
+    desc: 'Use broadcast experience to create direct communication channels between the constituency and party leadership.',
   },
   {
     num: '04',
     title: 'Women & Market Traders',
-    desc: 'Provide targeted support, micro-financing access, and training for female entrepreneurs and market traders.',
-    accent: '#006B3C',
+    desc: 'Dedicated support for market women and female entrepreneurs through advocacy, access to capital, and trade facilitation.',
   },
   {
     num: '05',
     title: 'Unity in the NDC',
-    desc: 'Strengthen internal party cohesion, heal divisions, and present a united front for the constituency.',
-    accent: '#CE1126',
+    desc: 'Strengthen internal party cohesion in Odododiodioo so every member feels valued heading into 2028.',
   },
   {
     num: '06',
     title: 'Accountability',
-    desc: 'Regular town halls, community meetings, and published progress reports — leadership you can hold to account.',
-    accent: '#FCD116',
+    desc: 'Regular town halls and community meetings to report progress and keep leadership answerable to the people.',
   },
 ]
 
 export default function Vision() {
-  const { ref, visible } = useScrollAnimation()
+  const { ref, visible } = useReveal()
 
   return (
-    <section id="vision" className="py-20 lg:py-28 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="vision" style={{ background: '#F7F9F7', padding: '80px 0' }}>
+      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
 
         {/* Header */}
-        <div ref={ref} className="text-center mb-14">
-          <p
-            className={`text-[#CE1126] font-bold text-sm uppercase tracking-widest mb-3 fade-up ${visible ? 'visible' : ''}`}
-            style={{ fontFamily: 'Barlow Condensed, sans-serif' }}
-          >
-            The Road Ahead
-          </p>
-          <h2
-            className={`text-3xl sm:text-4xl font-bold text-[#006B3C] leading-tight fade-up delay-100 ${visible ? 'visible' : ''}`}
-            style={{ fontFamily: 'Playfair Display, serif' }}
-          >
+        <div ref={ref} style={{ marginBottom: 48 }}>
+          <div className={`reveal${visible ? ' is-visible' : ''}`} style={{ marginBottom: 8 }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#006B3C' }}>
+              The Agenda
+            </span>
+          </div>
+          <h2 className={`reveal${visible ? ' is-visible' : ''}`}
+            style={{ fontSize: 'clamp(1.75rem, 3vw, 2.25rem)', fontWeight: 800, color: '#111111', letterSpacing: '-0.02em', lineHeight: 1.2 }}>
             A Constituency That Thrives Together
           </h2>
         </div>
 
-        {/* 3×2 Vision grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* 3x2 grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
           {VISIONS.map((v, i) => (
             <div
               key={v.num}
-              className={`relative p-7 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300 fade-up ${visible ? 'visible' : ''}`}
+              className={`reveal${visible ? ' is-visible' : ''}`}
               style={{
-                transitionDelay: `${i * 100}ms`,
-                borderLeft: `4px solid ${v.accent}`,
+                background: '#ffffff',
+                borderRadius: 8,
+                padding: 32,
+                border: '1px solid #E5E5E5',
+                borderLeft: `4px solid ${ACCENTS[i]}`,
+                position: 'relative',
+                overflow: 'hidden',
+                transitionDelay: `${i * 70}ms`,
               }}
             >
-              {/* Faded number */}
-              <div
-                className="absolute top-4 right-5 text-6xl font-black leading-none select-none"
-                style={{
-                  fontFamily: 'Barlow Condensed, sans-serif',
-                  color: v.accent,
-                  opacity: 0.08,
-                }}
-              >
+              {/* Faded background number */}
+              <div style={{
+                position: 'absolute',
+                top: 12,
+                right: 16,
+                fontSize: '4rem',
+                fontWeight: 800,
+                color: '#F0F0F0',
+                lineHeight: 1,
+                userSelect: 'none',
+                letterSpacing: '-0.04em',
+              }}>
                 {v.num}
               </div>
 
-              <span
-                className="inline-block text-xs font-bold uppercase tracking-widest mb-3 px-2 py-0.5 rounded"
-                style={{
-                  fontFamily: 'Barlow Condensed, sans-serif',
-                  backgroundColor: `${v.accent}18`,
-                  color: v.accent,
-                }}
-              >
+              <div style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: ACCENTS[i], marginBottom: 12 }}>
                 {v.num}
-              </span>
-
-              <h3
-                className="text-xl font-bold text-gray-900 mb-2"
-                style={{ fontFamily: 'Playfair Display, serif' }}
-              >
+              </div>
+              <h3 style={{ fontSize: '1.0625rem', fontWeight: 800, color: '#111111', marginBottom: 10, letterSpacing: '-0.01em', lineHeight: 1.3 }}>
                 {v.title}
               </h3>
-              <p
-                className="text-gray-600 text-sm leading-relaxed"
-                style={{ fontFamily: 'Barlow, sans-serif' }}
-              >
+              <p style={{ fontSize: '0.9rem', color: '#555555', lineHeight: 1.8 }}>
                 {v.desc}
               </p>
             </div>

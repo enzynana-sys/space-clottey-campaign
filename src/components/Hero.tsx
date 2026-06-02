@@ -1,43 +1,42 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-// ── HERO STATS ─────────────────────────────────────────────────────────────
+// UPDATE: WhatsApp
+const WA_LINK = 'https://wa.me/233540852639'
+
 const STATS = [
   { value: 100, suffix: '+', label: 'Jobs Secured' },
-  { value: 8, suffix: '', label: 'Sectors Represented' },
+  { value: 8, suffix: '', label: 'Sectors' },
   { value: 20, suffix: '+', label: 'Years of Leadership' },
 ]
 
 function useCounter(target: number, active: boolean) {
-  const [count, setCount] = useState(0)
+  const [n, setN] = useState(0)
   useEffect(() => {
     if (!active) return
-    const duration = 1800
-    const steps = 60
-    const increment = target / steps
-    let current = 0
-    const timer = setInterval(() => {
-      current += increment
-      if (current >= target) { setCount(target); clearInterval(timer) }
-      else setCount(Math.floor(current))
-    }, duration / steps)
-    return () => clearInterval(timer)
+    let raf: number
+    const start = performance.now()
+    const duration = 1400
+    const step = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1)
+      const ease = 1 - Math.pow(1 - progress, 3)
+      setN(Math.floor(ease * target))
+      if (progress < 1) raf = requestAnimationFrame(step)
+      else setN(target)
+    }
+    raf = requestAnimationFrame(step)
+    return () => cancelAnimationFrame(raf)
   }, [target, active])
-  return count
+  return n
 }
 
-function StatCounter({ value, suffix, label, active }: { value: number; suffix: string; label: string; active: boolean }) {
-  const count = useCounter(value, active)
+function Counter({ value, suffix, label, active }: { value: number; suffix: string; label: string; active: boolean }) {
+  const n = useCounter(value, active)
   return (
-    <div className="text-center">
-      <div
-        className="text-4xl md:text-5xl font-bold text-[#FCD116]"
-        style={{ fontFamily: 'Barlow Condensed, sans-serif' }}
-      >
-        {count}{suffix}
+    <div style={{ flex: 1, textAlign: 'center', padding: '0 16px' }}>
+      <div style={{ fontSize: '2.5rem', fontWeight: 800, color: '#006B3C', lineHeight: 1.1, letterSpacing: '-0.03em' }}>
+        {n}{suffix}
       </div>
-      <div className="text-white/80 text-sm mt-1 uppercase tracking-widest"
-        style={{ fontFamily: 'Barlow Condensed, sans-serif' }}
-      >
+      <div style={{ fontSize: '0.8125rem', color: '#555555', marginTop: 6, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
         {label}
       </div>
     </div>
@@ -45,144 +44,190 @@ function StatCounter({ value, suffix, label, active }: { value: number; suffix: 
 }
 
 export default function Hero() {
+  const [active, setActive] = useState(false)
   const [visible, setVisible] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 100)
+    const t = setTimeout(() => { setVisible(true); setActive(true) }, 120)
     return () => clearTimeout(t)
   }, [])
 
   const scrollTo = (href: string) => {
-    const el = document.querySelector(href)
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center overflow-hidden pt-16"
-      style={{ backgroundColor: '#006B3C' }}
+      style={{
+        paddingTop: 'calc(64px + 80px)',
+        paddingBottom: 80,
+        background: '#ffffff',
+      }}
     >
-      {/* Diagonal stripe — right side */}
       <div
-        className="absolute right-0 top-0 bottom-0 w-2/5 hidden lg:block"
-        style={{
-          background: 'linear-gradient(135deg, transparent 30%, #004D2A 30%)',
-          clipPath: 'polygon(30% 0, 100% 0, 100% 100%, 0% 100%)',
-        }}
-      />
+        ref={ref}
+        style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px', textAlign: 'center' }}
+      >
+        {/* Gold badge */}
+        <div
+          className={`reveal${visible ? ' is-visible' : ''}`}
+          style={{ marginBottom: 24 }}
+        >
+          <span style={{
+            display: 'inline-block',
+            background: '#FCD116',
+            color: '#111111',
+            fontSize: '0.75rem',
+            fontWeight: 700,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            padding: '6px 16px',
+            borderRadius: 100,
+          }}>
+            NDC · Odododiodioo Constituency
+          </span>
+        </div>
 
-      {/* Subtle dot pattern */}
-      <div
-        className="absolute inset-0 opacity-5"
-        style={{
-          backgroundImage: 'radial-gradient(circle at 1px 1px, #FCD116 1px, transparent 0)',
-          backgroundSize: '32px 32px',
-        }}
-      />
+        {/* Headline */}
+        <h1
+          className={`reveal${visible ? ' is-visible' : ''}`}
+          style={{
+            fontSize: 'clamp(2.2rem, 5vw, 3.75rem)',
+            fontWeight: 800,
+            color: '#111111',
+            letterSpacing: '-0.03em',
+            lineHeight: 1.15,
+            marginBottom: 24,
+            maxWidth: 800,
+            margin: '0 auto 24px',
+          }}
+        >
+          Action, Progress, and Real Results.
+        </h1>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        {/* Subheadline */}
+        <p
+          className={`reveal${visible ? ' is-visible' : ''}`}
+          style={{
+            fontSize: '1.125rem',
+            color: '#555555',
+            lineHeight: 1.8,
+            maxWidth: 600,
+            margin: '0 auto 40px',
+          }}
+        >
+          From creating over 100 sustainable jobs to improving community health with free household biodigester toilets, we are building a stronger Odododiodioo together.
+        </p>
 
-          {/* LEFT — Content */}
-          <div>
-            {/* Live badge */}
-            <div
-              className={`inline-flex items-center gap-2 mb-6 fade-up ${visible ? 'visible' : ''}`}
-            >
-              <span className="w-2 h-2 rounded-full bg-[#FCD116] animate-pulse" />
-              <span
-                className="text-[#FCD116] text-xs font-bold uppercase tracking-[0.2em] border border-[#FCD116]/40 px-3 py-1 rounded-full"
-                style={{ fontFamily: 'Barlow Condensed, sans-serif' }}
-              >
-                NDC Odododiodioo 2024
-              </span>
-            </div>
-
-            {/* Name */}
-            <h1
-              className={`leading-none mb-4 fade-up delay-100 ${visible ? 'visible' : ''}`}
-              style={{ fontFamily: 'Playfair Display, serif' }}
-            >
-              <span className="block text-white text-6xl sm:text-7xl lg:text-8xl font-black">
-                Space
-              </span>
-              <span className="block text-[#FCD116] text-6xl sm:text-7xl lg:text-8xl font-black">
-                Clottey
-              </span>
-            </h1>
-
-            {/* Position */}
-            <p
-              className={`text-white/70 text-base sm:text-lg mb-4 fade-up delay-200 ${visible ? 'visible' : ''}`}
-              style={{ fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.1em' }}
-            >
-              NDC CANDIDATE — ODODODIODIOO CONSTITUENCY CHAIRMAN
-            </p>
-
-            {/* Tagline */}
-            <p
-              className={`text-white text-xl sm:text-2xl font-semibold mb-10 max-w-md leading-snug fade-up delay-300 ${visible ? 'visible' : ''}`}
-              style={{ fontFamily: 'Barlow, sans-serif' }}
-            >
-              "A Vote for Space Clottey, is a Vote for <span className="text-[#FCD116]">Peace & Development</span>"
-            </p>
-
-            {/* Stats */}
-            <div className={`grid grid-cols-3 gap-6 mb-10 fade-up delay-400 ${visible ? 'visible' : ''}`}>
-              {STATS.map((s) => (
-                <StatCounter key={s.label} {...s} active={visible} />
-              ))}
-            </div>
-
-            {/* CTA buttons */}
-            <div className={`flex flex-wrap gap-4 fade-up delay-500 ${visible ? 'visible' : ''}`}>
-              <button
-                onClick={() => scrollTo('#join')}
-                className="bg-[#CE1126] hover:bg-[#a80e1f] text-white font-bold px-8 py-3.5 rounded transition-colors duration-200 cursor-pointer text-base"
-                style={{ fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.05em' }}
-              >
-                JOIN THE MOVEMENT
-              </button>
-              <button
-                onClick={() => scrollTo('#biodigesters')}
-                className="border-2 border-white text-white hover:bg-white hover:text-[#006B3C] font-bold px-8 py-3.5 rounded transition-colors duration-200 cursor-pointer text-base"
-                style={{ fontFamily: 'Barlow Condensed, sans-serif', letterSpacing: '0.05em' }}
-              >
-                OUR INITIATIVES
-              </button>
-            </div>
+        {/* Photo placeholder */}
+        {/* UPDATE: Photo — replace div below with <img src="/space-clottey.jpg" ... loading="lazy"> */}
+        <div
+          className={`reveal${visible ? ' is-visible' : ''}`}
+          style={{ marginBottom: 40 }}
+        >
+          <div style={{
+            maxWidth: 480,
+            margin: '0 auto',
+            background: '#E8F5EE',
+            borderRadius: 8,
+            aspectRatio: '4/3',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+          }}>
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#006B3C" strokeWidth="1.5" strokeLinecap="round">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+            <span style={{ color: '#006B3C', fontSize: '0.875rem', fontWeight: 600 }}>Candidate Photo</span>
+            <span style={{ color: '#888', fontSize: '0.75rem' }}>space-clottey.jpg</span>
           </div>
+        </div>
 
-          {/* RIGHT — Candidate photo */}
-          <div className={`flex justify-center lg:justify-end fade-up delay-300 ${visible ? 'visible' : ''}`}>
-            {/*
-              PHOTO PLACEHOLDER
-              Replace the div below with:
-              <img src="/space-clottey.jpg" alt="Space Clottey" className="rounded-lg w-full max-w-sm object-cover shadow-2xl" />
-              Place space-clottey.jpg in the /public folder — no other code changes needed.
-            */}
-            <div className="relative w-72 h-96 sm:w-80 sm:h-[420px] lg:w-96 lg:h-[500px]">
-              <div
-                className="absolute inset-0 rounded-lg border-2 border-dashed border-[#FCD116]/50 flex flex-col items-center justify-center text-center p-6"
-                style={{ backgroundColor: '#004D2A' }}
-              >
-                <div className="text-5xl mb-4">📸</div>
-                <p
-                  className="text-[#FCD116] font-semibold text-sm mb-2"
-                  style={{ fontFamily: 'Barlow Condensed, sans-serif' }}
-                >
-                  CANDIDATE PHOTO
-                </p>
-                <p className="text-white/50 text-xs" style={{ fontFamily: 'Barlow, sans-serif' }}>
-                  Add space-clottey.jpg to /public and replace this placeholder
-                </p>
+        {/* Stats row */}
+        <div
+          className={`reveal${visible ? ' is-visible' : ''}`}
+          style={{
+            display: 'flex',
+            alignItems: 'stretch',
+            justifyContent: 'center',
+            maxWidth: 560,
+            margin: '0 auto 40px',
+            border: '1px solid #E5E5E5',
+            borderRadius: 8,
+            overflow: 'hidden',
+          }}
+        >
+          {STATS.map((s, i) => (
+            <div key={s.label} style={{ display: 'contents' }}>
+              {i > 0 && <div style={{ width: 1, background: '#E5E5E5', flexShrink: 0 }} />}
+              <div style={{ flex: 1, padding: '24px 16px', textAlign: 'center' }}>
+                <div style={{ fontSize: '2rem', fontWeight: 800, color: '#006B3C', letterSpacing: '-0.03em', lineHeight: 1 }}>
+                  <Counter value={s.value} suffix={s.suffix} label={s.label} active={active} />
+                </div>
               </div>
-              {/* Gold accent corner */}
-              <div className="absolute -bottom-3 -right-3 w-full h-full border-2 border-[#FCD116]/30 rounded-lg -z-10" />
             </div>
-          </div>
+          ))}
+        </div>
 
+        {/* CTAs */}
+        <div
+          className={`reveal${visible ? ' is-visible' : ''}`}
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}
+        >
+          {/* UPDATE: WhatsApp */}
+          <a
+            href={WA_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 10,
+              background: '#25D366',
+              color: '#ffffff',
+              fontWeight: 700,
+              fontSize: '1.0625rem',
+              padding: '14px 32px',
+              borderRadius: 8,
+              textDecoration: 'none',
+              transition: 'opacity 200ms',
+              width: '100%',
+              maxWidth: 380,
+              justifyContent: 'center',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = '0.88')}
+            onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Tap to Chat on WhatsApp →
+          </a>
+
+          <button
+            onClick={() => scrollTo('#biodigesters')}
+            style={{
+              background: 'none',
+              border: '2px solid #CE1126',
+              color: '#CE1126',
+              fontWeight: 700,
+              fontSize: '1rem',
+              padding: '12px 28px',
+              borderRadius: 8,
+              cursor: 'pointer',
+              fontFamily: 'inherit',
+              transition: 'background 200ms, color 200ms',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#CE1126'; e.currentTarget.style.color = '#fff' }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#CE1126' }}
+          >
+            Our Initiatives ↓
+          </button>
         </div>
       </div>
     </section>

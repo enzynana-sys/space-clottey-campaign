@@ -1,12 +1,13 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import Ticker from './components/Ticker'
+import Pillars from './components/Pillars'
 import About from './components/About'
 import Biodigester from './components/Biodigester'
 import Jobs from './components/Jobs'
 import Vision from './components/Vision'
 import Volunteer from './components/Volunteer'
 import Footer from './components/Footer'
+import StickyWhatsApp from './components/StickyWhatsApp'
 
 export default function App() {
   return (
@@ -14,7 +15,7 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <Ticker />
+        <Pillars />
         <About />
         <Biodigester />
         <Jobs />
@@ -22,6 +23,7 @@ export default function App() {
         <Volunteer />
       </main>
       <Footer />
+      <StickyWhatsApp />
     </>
   )
 }
