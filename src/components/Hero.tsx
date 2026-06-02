@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 // UPDATE: WhatsApp
 const WA = 'https://wa.me/233540852639'
-const OFFSET = 100 // topbar 36px + navbar 64px
+const OFFSET = 108 // topbar 36px + navbar 72px
 
 function go(href: string) { document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' }) }
 
