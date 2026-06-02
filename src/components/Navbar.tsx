@@ -53,8 +53,8 @@ export default function Navbar() {
             <div style={{ fontSize: '1rem', fontWeight: 800, color: '#006B3C', lineHeight: 1.1, letterSpacing: '-0.02em', fontFamily: 'inherit' }}>
               Space Clottey
             </div>
-            <div style={{ fontSize: '0.65rem', fontWeight: 600, color: '#CE1126', textTransform: 'uppercase', letterSpacing: '0.08em', lineHeight: 1 }}>
-              NDC · Odododiodioo
+            <div style={{ fontSize: '0.58rem', fontWeight: 700, color: '#CE1126', textTransform: 'uppercase', letterSpacing: '0.06em', lineHeight: 1.3 }}>
+              VOTE · Odododiodioo Constituency<br />CHAIRMAN HOPEFUL
             </div>
           </div>
         </button>

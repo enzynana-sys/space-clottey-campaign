@@ -20,13 +20,13 @@ export default function Hero() {
         display: 'flex',
         alignItems: 'center',
         // UPDATE: Photo — hero background image
-        background: `url('/clottey-2.jpg') center top / cover no-repeat`,
+        background: `url('/clottey-3.jpg') center top / cover no-repeat`,
       }}
     >
-      {/* Dark overlay — like ndcuki.com */}
+      {/* Overlay — left side darker for text readability, right side light so photo shows clearly */}
       <div style={{
         position: 'absolute', inset: 0,
-        background: 'linear-gradient(135deg, rgba(0,60,30,0.88) 0%, rgba(0,30,15,0.78) 100%)',
+        background: 'linear-gradient(to right, rgba(0,40,20,0.82) 0%, rgba(0,40,20,0.55) 50%, rgba(0,20,10,0.25) 100%)',
       }} />
 
       {/* Centred content */}
